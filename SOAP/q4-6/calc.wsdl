@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="CalculatorService"
+             targetNamespace="http://tempuri.org/"
+             xmlns:tns="http://tempuri.org/"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+
+  <types>
+    <xsd:schema targetNamespace="http://tempuri.org/">
+      
+      <!-- Input Message -->
+      <xsd:element name="AddNumbersRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="num1" type="xsd:int"/>
+            <xsd:element name="num2" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="SubtractNumbersRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="num1" type="xsd:int"/>
+            <xsd:element name="num2" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="MultiplyNumbersRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="num1" type="xsd:int"/>
+            <xsd:element name="num2" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="DivideNumbersRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="num1" type="xsd:int"/>
+            <xsd:element name="num2" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+
+      <!-- Output Message -->
+      <xsd:element name="ResultResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="result" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+
+    </xsd:schema>
+  </types>
+
+  <message name="AddNumbersSoapIn">
+    <part name="parameters" element="tns:AddNumbersRequest"/>
+  </message>
+  
+  <message name="SubtractNumbersSoapIn">
+    <part name="parameters" element="tns:SubtractNumbersRequest"/>
+  </message>
+  
+  <message name="MultiplyNumbersSoapIn">
+    <part name="parameters" element="tns:MultiplyNumbersRequest"/>
+  </message>
+  
+  <message name="DivideNumbersSoapIn">
+    <part name="parameters" element="tns:DivideNumbersRequest"/>
+  </message>
+
+  <message name="ResultSoapOut">
+    <part name="parameters" element="tns:ResultResponse"/>
+  </message>
+
+  <portType name="CalculatorServiceSoapPort">
+    <operation name="AddNumbers">
+      <input message="tns:AddNumbersSoapIn"/>
+      <output message="tns:ResultSoapOut"/>
+    </operation>
+    
+    <operation name="SubtractNumbers">
+      <input message="tns:SubtractNumbersSoapIn"/>
+      <output message="tns:ResultSoapOut"/>
+    </operation>
+    
+    <operation name="MultiplyNumbers">
+      <input message="tns:MultiplyNumbersSoapIn"/>
+      <output message="tns:ResultSoapOut"/>
+    </operation>
+    
+    <operation name="DivideNumbers">
+      <input message="tns:DivideNumbersSoapIn"/>
+      <output message="tns:ResultSoapOut"/>
+    </operation>
+  </portType>
+
+  <binding name="CalculatorServiceSoapBinding" type="tns:CalculatorServiceSoapPort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="AddNumbers">
+      <soap:operation soapAction="AddNumbers"/> 
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    
+    <operation name="SubtractNumbers">
+      <soap:operation soapAction="SubtractNumbers"/> 
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    
+    <operation name="MultiplyNumbers">
+      <soap:operation soapAction="MultiplyNumbers"/> 
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    
+    <operation name="DivideNumbers">
+      <soap:operation soapAction="DivideNumbers"/> 
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+
+  <service name="CalculatorService">
+    <port name="CalculatorServiceSoapPort" binding="tns:CalculatorServiceSoapBinding">
+      <soap:address location="http://localhost:8000/calc"/> 
+    </port>
+  </service>
+
+</definitions>

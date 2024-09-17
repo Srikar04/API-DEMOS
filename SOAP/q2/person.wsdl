@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="PersonService"
+             targetNamespace="http://tempuri.org/"
+             xmlns:tns="http://tempuri.org/"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+
+  <types>
+    <xsd:schema targetNamespace="http://tempuri.org/">
+      <xsd:complexType name="Person">
+        <xsd:sequence>
+          <xsd:element name="name" type="xsd:string"/>
+          <xsd:element name="age" type="xsd:int"/>
+          <xsd:element name="address" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+
+      <xsd:element name="GetPersonRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="person" type="tns:Person"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+
+      <xsd:element name="GetPersonResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="person" type="tns:Person"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </types>
+
+  <message name="GetPersonSoapIn">
+    <part name="parameters" element="tns:GetPersonRequest"/>
+  </message>
+  <message name="GetPersonSoapOut">
+    <part name="parameters" element="tns:GetPersonResponse"/>
+  </message>
+
+  <portType name="PersonServiceSoapPort">
+    <operation name="GetPerson">
+      <input message="tns:GetPersonSoapIn"/>
+      <output message="tns:GetPersonSoapOut"/>
+    </operation>
+  </portType>
+
+  <binding name="PersonServiceSoapBinding" type="tns:PersonServiceSoapPort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="GetPerson">
+      <soap:operation soapAction="GetPerson"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+
+  <service name="PersonService">
+    <port name="PersonServiceSoapPort" binding="tns:PersonServiceSoapBinding">
+      <soap:address location="http://localhost:8000/person"/>
+    </port>
+  </service>
+
+</definitions>

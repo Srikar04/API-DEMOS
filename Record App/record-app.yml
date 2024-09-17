@@ -1,0 +1,32 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: record-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: record-app
+  template:
+    metadata:
+      labels:
+        app: record-app
+    spec:
+      containers:
+      - name: record-app
+        image: cc-image-3
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: record-app-service
+spec:
+  selector:
+    app: record-app
+  ports:
+  - port: 80
+    targetPort: 3000
